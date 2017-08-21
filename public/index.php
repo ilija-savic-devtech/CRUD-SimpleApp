@@ -8,8 +8,10 @@ $klein = new \Klein\Klein();
 $klein->respond('/', function() use ($twig){
 	echo $twig->render('home.twig');
 });
-$db = \classes\Db::getInstance();
-$db->connect();
+$db = new \classes\Database(new \classes\Student());
+
+$db->getAll();
+
 
 
 $klein->dispatch();

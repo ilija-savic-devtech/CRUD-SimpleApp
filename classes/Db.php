@@ -2,39 +2,26 @@
 
 namespace classes;
 
-class Db
+class Db extends Database
 {
 
-	private function __construct()
-	{
-	}
-
-	public static function getInstance()
-	{
-		static $instance = null;
-		if ($instance === null) {
-			$instance = new Db();
+	public function getAll(){
+		$conn = $this->connect();
+		$sql = "SELECT * FROM guest_info";
+		$result = mysqli_query($conn, $sql);
+		$var = array();
+		if (mysqli_num_rows($result) > 0) {
+			// output data of each row
+			while($row = mysqli_fetch_assoc($result)) {
+				$var[] = $row;
+				//echo "id: " . $row["id"]. " - Name: " . $row["name"]. " - Date of birth: " . $row["dateOfBirth"]. "<br>";
+			}
+		} else {
+			echo "0 results";
 		}
 
-		return $instance;
+		mysqli_close($conn);
 	}
 
-	public function connect()
-	{
-		$serverName = '127.0.0.1:3306';
-		$username = 'root';
-		$password = 'NoIdea(*(989';
-		// Create connection
-		$conn = mysqli_connect($serverName, $username, $password);
 
-		// Check connection
-		if (!$conn) {
-			die("Connection failed: " . mysqli_connect_error());
-		}
-		echo "Connected successfully";
-	}
-
-	public function close(){
-
-	}
 }
