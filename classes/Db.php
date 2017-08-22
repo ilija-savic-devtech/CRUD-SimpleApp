@@ -35,4 +35,13 @@ class Db
 		$conn = null;
 	}
 
+	public function delete($id){
+		$conn = Database::connect();
+		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$sql = $conn->prepare("DELETE FROM guest.student WHERE id = ?");
+		$sql->bindParam(1, $id);
+		$sql->execute();
+		$conn = null;
+	}
+
 }

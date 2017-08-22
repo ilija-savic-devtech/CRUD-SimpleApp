@@ -1,7 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ilija.savic
- * Date: 8/22/2017
- * Time: 3:20 PM
- */
+require_once '..\classes\Db.php';
+require_once '..\classes\Database.php';
+
+	$id = null;
+		foreach ($_POST as $key => $value) {
+			$id = $key;
+		}
+	$db = new \classes\Db();
+	$db->delete($id);
+	header('Location: /');
