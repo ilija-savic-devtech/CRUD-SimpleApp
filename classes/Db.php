@@ -2,26 +2,37 @@
 
 namespace classes;
 
-class Db extends Database
+class Db
 {
 
-	public function getAll(){
-		$conn = $this->connect();
-		$sql = "SELECT * FROM guest_info";
-		$result = mysqli_query($conn, $sql);
+	public function getAll()
+	{
+		$conn = Database::connect();
+		$sql = "SELECT * FROM student";
 		$var = array();
-		if (mysqli_num_rows($result) > 0) {
-			// output data of each row
-			while($row = mysqli_fetch_assoc($result)) {
-				$var[] = $row;
-				//echo "id: " . $row["id"]. " - Name: " . $row["name"]. " - Date of birth: " . $row["dateOfBirth"]. "<br>";
-			}
-		} else {
-			echo "0 results";
+		foreach ($conn->query($sql) as $row) {
+			$student = new Student();
+			$student->setId($row['id'])->setName($row['name'])->setSurname($row['surname'])->setIndexNo($row['indexno'])->setAdress($row['adress']);
+			$var[] = $student;
 		}
+		//Database::disconnect();
+		$conn = null;
 
-		mysqli_close($conn);
+		return $var;
+
 	}
 
+	public function create($name, $surname, $indexno, $adress)
+	{
+		$conn = Database::connect();
+		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$sql = $conn->prepare("INSERT INTO guest.student (name, surname, indexno, adress) VALUES (?, ?, ?, ?)");
+		$sql->bindParam(1, $name);
+		$sql->bindParam(2, $surname);
+		$sql->bindParam(3, $indexno);
+		$sql->bindParam(4, $adress);
+		$sql->execute();
+		$conn = null;
+	}
 
 }

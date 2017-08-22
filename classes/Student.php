@@ -1,6 +1,9 @@
 <?php
+
 namespace classes;
-class Student{
+
+class Student
+{
 	private $id;
 	private $name;
 	private $surname;
@@ -101,6 +104,5 @@ class Student{
 
 		return $this;
 	}
-
 
 }
