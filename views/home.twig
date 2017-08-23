@@ -2,14 +2,12 @@
 
 {% block title %}Homepage{% endblock %}
 {% block content %}
-    <h1>
-        <center>This is homepage</center>
-    </h1><br>
-    <form method="POST" action="/insert.php">
-        Name: <input type="text"  name="name"><br>
-        Surname: <input type="text" name="surname"><br>
-        Index No: <input type="number" name="indexno"><br>
-        Adress: <input type="text" name="adress"><br>
+
+    <form method="POST" action="/insert">
+        Name: <input type="text" name="name" required><br>
+        Surname: <input type="text" name="surname" required><br>
+        Index No: <input type="number" name="indexno" required><br>
+        Adress: <input type="text" name="adress" required><br>
         <button name="save">Add</button>
     </form>
     <br>
@@ -29,8 +27,18 @@
                 <td>{{ item.getSurName }}</td>
                 <td>{{ item.getIndexNo }}</td>
                 <td>{{ item.getAdress }}</td>
-                <td><form method="POST" action="/delete.php"><button name={{ item.getId }}>Delete</button></form></td>
+                <td>
+                    <form method="POST" action="/read">
+                        <button name={{ item.getId }}>Read</button>
+                    </form>
+                    <form method="POST" action="/updatePage">
+                        <button name={{ item.getId }}>Update</button>
+                    </form>
+                    <form method="POST" action="/delete">
+                        <button name={{ item.getId }}>Delete</button>
+                    </form>
+                </td>
             </tr>
-            {% endfor %}
+        {% endfor %}
     </table>
 {% endblock %}

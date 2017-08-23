@@ -1,0 +1,12 @@
+{% extends "base.twig" %}
+
+{% block title %}Homepage{% endblock %}
+{% block content %}
+    Name: <label>{{ getOne.name }}</label><br>
+    Surname:  <label>{{ getOne.surname }}</label><br>
+    Index No:  <label>{{ getOne.indexno }}</label><br>
+    Adress:  <label>{{ getOne.adress }}</label><br>
+<form method="POST" action="/">
+    <button name="back">Back</button>
+</form>
+{% endblock %}

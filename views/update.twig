@@ -1,0 +1,15 @@
+{% extends "base.twig" %}
+
+{% block title %}Homepage{% endblock %}
+{% block content %}
+    <h1>Updating entry with id: {{ id }}</h1><br>
+
+<form method="POST" action="/update">
+    <input type="hidden" name="id" value={{ id }}>
+    Name: <input type="text"  name="name" required><br>
+    Surname: <input type="text" name="surname" required><br>
+    Index No: <input type="number" name="indexno" required><br>
+    Adress: <input type="text" name="adress" required><br>
+    <button name="save">Update</button>
+</form>
+{% endblock %}
